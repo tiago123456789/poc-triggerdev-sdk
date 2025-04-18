@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"log/slog"
 	"net/http"
 	"os"
@@ -37,14 +36,11 @@ func (h *APIHandler) Handle(ctx context.Context, record slog.Record) error {
 		return true
 	})
 
-	fmt.Println(data)
-	// Convert to JSON
 	body, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
 
-	// Send to API
 	req, err := http.NewRequest("POST", h.Endpoint, bytes.NewBuffer(body))
 	if err != nil {
 		return err
